@@ -1,7 +1,6 @@
 package com.cisternas.consultorio.dto;
 
 import java.time.LocalTime;
-import java.util.Objects;
 
 public class DisponibilidadDTO {
 
@@ -9,20 +8,21 @@ public class DisponibilidadDTO {
 	private String dia;
 	private LocalTime horaInicio;
 	private LocalTime horaFin;
-	private ProfesionalDTO profesional;
+	private ProfesionalDTO profesionalDTO;
 
 	public DisponibilidadDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public DisponibilidadDTO(Long id, String dia, LocalTime horaInicio, LocalTime horaFin, ProfesionalDTO profesional) {
+	public DisponibilidadDTO(Long id, String dia, LocalTime horaInicio, LocalTime horaFin,
+			ProfesionalDTO profesionalDTO) {
 		super();
 		this.id = id;
 		this.dia = dia;
 		this.horaInicio = horaInicio;
 		this.horaFin = horaFin;
-		this.profesional = profesional;
+		this.profesionalDTO = profesionalDTO;
 	}
 
 	public Long getId() {
@@ -57,40 +57,18 @@ public class DisponibilidadDTO {
 		this.horaFin = horaFin;
 	}
 
-	public ProfesionalDTO getProfesional() {
-		return profesional;
+	public ProfesionalDTO getProfesionalDTO() {
+		return profesionalDTO;
 	}
 
-	public void setProfesional(ProfesionalDTO profesional) {
-		this.profesional = profesional;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(dia, horaFin, horaInicio, id, profesional);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		DisponibilidadDTO other = (DisponibilidadDTO) obj;
-		return Objects.equals(dia, other.dia) && Objects.equals(horaFin, other.horaFin)
-				&& Objects.equals(horaInicio, other.horaInicio) && Objects.equals(id, other.id)
-				&& Objects.equals(profesional, other.profesional);
+	public void setProfesionalDTO(ProfesionalDTO profesionalDTO) {
+		this.profesionalDTO = profesionalDTO;
 	}
 
 	@Override
 	public String toString() {
 		return "DisponibilidadDTO [id=" + id + ", dia=" + dia + ", horaInicio=" + horaInicio + ", horaFin=" + horaFin
-				+ ", profesional=" + profesional + "]";
+				+ ", profesionalDTO=" + profesionalDTO + "]";
 	}
 
 }

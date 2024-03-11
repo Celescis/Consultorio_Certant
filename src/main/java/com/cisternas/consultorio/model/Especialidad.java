@@ -7,8 +7,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
@@ -30,21 +28,15 @@ public class Especialidad implements Serializable {
 	@Column(name = "esp_descripcion")
 	private String descripcion;
 
-	@OneToOne
-	@JoinColumn(name = "esp_profesional")
-	private Profesional profesional;
-
 	public Especialidad() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Especialidad(Long id, @NotBlank(message = "Debe ingresar la especialidad") String descripcion,
-			Profesional profesional) {
+	public Especialidad(Long id, @NotBlank(message = "Debe ingresar la especialidad") String descripcion) {
 		super();
 		this.id = id;
 		this.descripcion = descripcion;
-		this.profesional = profesional;
 	}
 
 	public Long getId() {
@@ -63,17 +55,9 @@ public class Especialidad implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public Profesional getProfesional() {
-		return profesional;
-	}
-
-	public void setProfesional(Profesional profesional) {
-		this.profesional = profesional;
-	}
-
 	@Override
 	public String toString() {
-		return "Especialidad [id=" + id + ", descripcion=" + descripcion + ", profesional=" + profesional + "]";
+		return "Especialidad [id=" + id + ", descripcion=" + descripcion + "]";
 	}
 
 }

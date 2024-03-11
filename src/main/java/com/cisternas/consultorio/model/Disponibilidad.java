@@ -2,10 +2,10 @@ package com.cisternas.consultorio.model;
 
 import java.io.Serializable;
 import java.time.LocalTime;
-import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -36,8 +36,8 @@ public class Disponibilidad implements Serializable {
 	@Column(name = "dis_horaFin")
 	private LocalTime horaFin;
 
-	@ManyToOne
-	@JoinColumn(name = "dis_matricula")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "pro_matricula")
 	private Profesional profesional;
 
 	public Disponibilidad() {
@@ -94,28 +94,6 @@ public class Disponibilidad implements Serializable {
 
 	public void setProfesional(Profesional profesional) {
 		this.profesional = profesional;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(dia, horaFin, horaInicio, id, profesional);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		Disponibilidad other = (Disponibilidad) obj;
-		return Objects.equals(dia, other.dia) && Objects.equals(horaFin, other.horaFin)
-				&& Objects.equals(horaInicio, other.horaInicio) && Objects.equals(id, other.id)
-				&& Objects.equals(profesional, other.profesional);
 	}
 
 	@Override

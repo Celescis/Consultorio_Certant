@@ -1,6 +1,6 @@
 package com.cisternas.consultorio.dto;
 
-import java.util.Set;
+import java.util.List;
 
 public class ProfesionalDTO {
 
@@ -9,7 +9,7 @@ public class ProfesionalDTO {
 	private String nombre;
 	private String apellido;
 	private AgendaDTO agenda;
-	private Set<DisponibilidadDTO> disponibilidad;
+	private List<DisponibilidadDTO> disponibilidad;
 
 	public ProfesionalDTO() {
 		super();
@@ -17,7 +17,7 @@ public class ProfesionalDTO {
 	}
 
 	public ProfesionalDTO(Long matricula, EspecialidadDTO especialidad, String nombre, String apellido, AgendaDTO agenda,
-			Set<DisponibilidadDTO> disponibilidad) {
+			List<DisponibilidadDTO> disponibilidad) {
 		super();
 		this.matricula = matricula;
 		this.especialidad = especialidad;
@@ -67,11 +67,11 @@ public class ProfesionalDTO {
 		this.agenda = agenda;
 	}
 
-	public Set<DisponibilidadDTO> getDisponibilidad() {
+	public List<DisponibilidadDTO> getDisponibilidad() {
 		return disponibilidad;
 	}
 
-	public void setDisponibilidad(Set<DisponibilidadDTO> disponibilidad) {
+	public void setDisponibilidad(List<DisponibilidadDTO> disponibilidad) {
 		this.disponibilidad = disponibilidad;
 	}
 

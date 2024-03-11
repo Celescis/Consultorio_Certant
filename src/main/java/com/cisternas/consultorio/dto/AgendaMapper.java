@@ -12,8 +12,17 @@ import com.cisternas.consultorio.model.Agenda;
 public class AgendaMapper {
 
 	private ProfesionalMapper profesionalMapper;
-
 	private TurnoMapper turnoMapper;
+
+	@Autowired
+	public void setTurnoMapper(TurnoMapper turnoMapper) {
+		this.turnoMapper = turnoMapper;
+	}
+
+	@Autowired
+	public void setProfesionalMapper(ProfesionalMapper profesionalMapper) {
+		this.profesionalMapper = profesionalMapper;
+	}
 
 	public Agenda dtoToEntity(AgendaDTO dto) {
 		Agenda entity = new Agenda();

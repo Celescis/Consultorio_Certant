@@ -11,6 +11,7 @@ import com.cisternas.consultorio.model.Profesional;
 @Component
 public class ProfesionalMapper {
 
+	@Autowired
 	private EspecialidadMapper especialidadMapper;
 
 	private AgendaMapper agendaMapper;

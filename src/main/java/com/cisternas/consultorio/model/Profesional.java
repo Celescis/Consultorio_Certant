@@ -1,12 +1,15 @@
 package com.cisternas.consultorio.model;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -30,14 +33,15 @@ public class Profesional implements Serializable {
 	@Column(name = "pro_apellido")
 	private String apellido;
 
-	@OneToOne(mappedBy = "profesional", cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "esp_id")
 	private Especialidad especialidad;
 
 	@OneToOne(mappedBy = "profesional", cascade = CascadeType.ALL)
 	private Agenda agenda;
 
-	@OneToMany(mappedBy = "profesional", cascade = CascadeType.ALL)
-	private Set<Disponibilidad> disponibilidad;
+	@OneToMany(mappedBy = "profesional", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Disponibilidad> disponibilidad;
 
 	public Profesional() {
 		super();
@@ -47,7 +51,7 @@ public class Profesional implements Serializable {
 	public Profesional(@NotNull(message = "Debe ingresar la matricula") Long matricula,
 			@NotBlank(message = "Debe ingresar el nombre") String nombre,
 			@NotBlank(message = "Debe ingresar el apellido") String apellido, Especialidad especialidad, Agenda agenda,
-			Set<Disponibilidad> disponibilidad) {
+			List<Disponibilidad> disponibilidad) {
 		super();
 		this.matricula = matricula;
 		this.nombre = nombre;
@@ -97,11 +101,11 @@ public class Profesional implements Serializable {
 		this.agenda = agenda;
 	}
 
-	public Set<Disponibilidad> getDisponibilidad() {
+	public List<Disponibilidad> getDisponibilidad() {
 		return disponibilidad;
 	}
 
-	public void setDisponibilidad(Set<Disponibilidad> disponibilidad) {
+	public void setDisponibilidad(List<Disponibilidad> disponibilidad) {
 		this.disponibilidad = disponibilidad;
 	}
 
