@@ -37,8 +37,8 @@ public class Disponibilidad implements Serializable {
 	private LocalTime horaFin;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "pro_matricula")
-	private Profesional profesional;
+    @JoinColumn(name = "pro_matricula", referencedColumnName = "pro_matricula")
+    private Profesional profesional;
 
 	public Disponibilidad() {
 		super();

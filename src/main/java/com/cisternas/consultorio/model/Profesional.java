@@ -40,7 +40,7 @@ public class Profesional implements Serializable {
 	@OneToOne(mappedBy = "profesional", cascade = CascadeType.ALL)
 	private Agenda agenda;
 
-	@OneToMany(mappedBy = "profesional", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "profesional", cascade = CascadeType.ALL)
     private List<Disponibilidad> disponibilidad;
 
 	public Profesional() {

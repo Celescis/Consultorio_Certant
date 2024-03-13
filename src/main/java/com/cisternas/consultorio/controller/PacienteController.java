@@ -99,7 +99,7 @@ public class PacienteController {
 
 	// PUT - MODIFICAR UN PACIENTE
 	@PutMapping("/put/{cuil}")
-	public ResponseEntity<?> modificarProp(@PathVariable Long cuil, @RequestBody @Validated PacienteDTO pacienteDTO) {
+	public ResponseEntity<?> modificar(@PathVariable Long cuil, @RequestBody @Validated PacienteDTO pacienteDTO) {
 
 		try {
 			Paciente paciente = pacienteRepository.findByCuil(cuil);

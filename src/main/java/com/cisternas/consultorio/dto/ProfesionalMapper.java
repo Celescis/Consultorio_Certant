@@ -4,19 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import com.cisternas.consultorio.model.Profesional;
+import com.cisternas.consultorio.service.DisponibilidadService;
 
 @Component
 public class ProfesionalMapper {
 
 	@Autowired
 	private EspecialidadMapper especialidadMapper;
-
-	private AgendaMapper agendaMapper;
-
-	private DisponibilidadMapper disponibilidadMapper;
 
 	public Profesional dtoToEntity(ProfesionalDTO dto) {
 		Profesional entity = new Profesional();
@@ -27,14 +25,6 @@ public class ProfesionalMapper {
 
 		if (dto.getEspecialidad() != null) {
 			entity.setEspecialidad(especialidadMapper.dtoToEntity(dto.getEspecialidad()));
-		}
-
-		if (dto.getAgenda() != null) {
-			entity.setAgenda(agendaMapper.dtoToEntity(dto.getAgenda()));
-		}
-
-		if (dto.getDisponibilidad() != null) {
-			entity.setDisponibilidad(disponibilidadMapper.lstDtoToLstEntity(dto.getDisponibilidad()));
 		}
 
 		return entity;
@@ -49,14 +39,6 @@ public class ProfesionalMapper {
 
 		if (entity.getEspecialidad() != null) {
 			dto.setEspecialidad(especialidadMapper.entityToDto(entity.getEspecialidad()));
-		}
-
-		if (entity.getAgenda() != null) {
-			dto.setAgenda(agendaMapper.entityToDto(entity.getAgenda()));
-		}
-
-		if (entity.getDisponibilidad() != null) {
-			dto.setDisponibilidad(disponibilidadMapper.lstEntityToLstDto(entity.getDisponibilidad()));
 		}
 
 		return dto;
