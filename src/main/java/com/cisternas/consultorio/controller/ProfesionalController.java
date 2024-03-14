@@ -37,9 +37,6 @@ public class ProfesionalController {
 	@Autowired
 	private ProfesionalService profesionalService;
 
-	@Autowired
-	private DisponibilidadService disponibilidadService;
-
 	// GET - UN PROFESIONAL
 	@GetMapping("/get/{matricula}")
 	public ResponseEntity<?> obtenerUno(@PathVariable Long matricula) {
@@ -86,8 +83,9 @@ public class ProfesionalController {
 
 			Profesional prof = profesionalRepository.findByMatricula(profesionalDTO.getMatricula());
 			if (prof == null) {
-				ResponseEntity<Map<String, Object>> response = profesionalService.crear(profesionalDTO);
-				return response;
+				Map<String, Object> serviceResponse = profesionalService.crear(profesionalDTO);
+				return new ResponseEntity<>(serviceResponse, HttpStatus.CREATED);
+
 			} else {
 				return new ResponseEntity<>(
 						"Ya existe un profesional con ese matricula: " + profesionalDTO.getMatricula(),
@@ -99,7 +97,6 @@ public class ProfesionalController {
 		}
 	}
 
-	
 	// PUT - MODIFICAR UN PROFESIONAL
 	@PutMapping("/put/{matricula}")
 	public ResponseEntity<?> modificar(@PathVariable Long matricula,

@@ -8,15 +8,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cisternas.consultorio.dto.DisponibilidadDTO;
 import com.cisternas.consultorio.dto.ProfesionalDTO;
 import com.cisternas.consultorio.dto.ProfesionalMapper;
+import com.cisternas.consultorio.model.Agenda;
 import com.cisternas.consultorio.model.Disponibilidad;
 import com.cisternas.consultorio.model.Profesional;
 import com.cisternas.consultorio.repository.ProfesionalRepository;
 
 @Service
+@Transactional
 public class ProfesionalService {
 	@Autowired
 	private ProfesionalMapper profesionalMapper;
@@ -27,19 +30,34 @@ public class ProfesionalService {
 	@Autowired
 	private DisponibilidadService disponibilidadService;
 
-	// @Autowired
-	// private AgendaService agendaService;
+	@Autowired
+	private AgendaService agendaService;
 
-	public ResponseEntity<Map<String, Object>> crear(ProfesionalDTO profesionalDTO) {
+	@Autowired
+	private TurnoService turnoService;
+
+	public Map<String, Object> crear(ProfesionalDTO profesionalDTO) {
 		Map<String, Object> response = new HashMap<>();
 		Profesional profesional = profesionalMapper.dtoToEntity(profesionalDTO);
 
 		Profesional profesionalGuardado = profesionalRepository.save(profesional);
 
 		if (!profesionalDTO.getDisponibilidad().isEmpty()) {
+			// GUARDO LA LISTA DE DISPONIBILIDAD
 			List<Disponibilidad> disponibilidadList = disponibilidadService
 					.mappeoLstDto(profesionalDTO.getDisponibilidad());
+
+			// ASIGNO LA DISPONIBILIDAD AL PROFESIONAL Y LO GUARDO EN LA BASE DE DATOS
 			disponibilidadService.asignarDisponibilidad(profesionalGuardado, disponibilidadList);
+
+			// GENERO LA AGENDA DEL PROFESIONAL
+			Agenda agenda = agendaService.generarAgenda(profesionalGuardado);
+
+			// GENERO LOS TURNOS A PARTIR DE LA DISPONIBILIDAD Y LO GUARDO EN LA AGENDA
+			agenda.setTurnos(turnoService.generarTurnos(agenda, disponibilidadList));
+			profesionalGuardado.setAgenda(agenda);
+			profesionalRepository.save(profesionalGuardado);
+
 			response.put("msg",
 					"Se creó el profesional con matrícula y disponibilidad: " + profesionalGuardado.getMatricula());
 		} else {
@@ -47,8 +65,8 @@ public class ProfesionalService {
 					+ " sin disponibilidad.");
 		}
 
-		// return ResponseEntity.ok(response);
-		return new ResponseEntity<>(response, HttpStatus.CREATED);
-	}
+		response.put("profesional", profesionalMapper.entityToDto(profesionalGuardado));
 
+		return response;
+	}
 }

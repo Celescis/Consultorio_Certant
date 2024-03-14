@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import com.cisternas.consultorio.model.Turno;
@@ -19,6 +20,11 @@ public class TurnoMapper {
 	@Autowired
 	private PacienteMapper pacienteMapper;
 
+	@Autowired
+	public TurnoMapper(@Lazy AgendaMapper agendaMapper) {
+		this.agendaMapper = agendaMapper;
+	}
+
 	public Turno dtoToEntity(TurnoDTO dto) {
 		Turno entity = new Turno();
 		entity.setId(dto.getId());
@@ -29,7 +35,7 @@ public class TurnoMapper {
 			entity.setAgenda(agendaMapper.dtoToEntity(dto.getAgenda()));
 		}
 
-		entity.setReservado(dto.isReservado());
+		// entity.setReservado(dto.isReservado());
 		entity.setEstado(dto.getEstado());
 
 		if (dto.getConsultorio() != null) {
@@ -53,7 +59,7 @@ public class TurnoMapper {
 			dto.setAgenda(agendaMapper.entityToDto(entity.getAgenda()));
 		}
 
-		dto.setReservado(entity.isReservado());
+		// dto.setReservado(entity.isReservado());
 		dto.setEstado(entity.getEstado());
 
 		if (entity.getConsultorio() != null) {

@@ -1,6 +1,7 @@
 package com.cisternas.consultorio.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -38,6 +39,7 @@ public class Profesional implements Serializable {
 	private Especialidad especialidad;
 
 	@OneToOne(mappedBy = "profesional", cascade = CascadeType.ALL)
+	@JoinColumn(name = "age_id")
 	private Agenda agenda;
 
 	@OneToMany(mappedBy = "profesional", cascade = CascadeType.ALL)
@@ -45,6 +47,7 @@ public class Profesional implements Serializable {
 
 	public Profesional() {
 		super();
+		this.disponibilidad = new ArrayList<>();
 		// TODO Auto-generated constructor stub
 	}
 

@@ -1,6 +1,7 @@
 package com.cisternas.consultorio.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -37,6 +38,7 @@ public class Agenda implements Serializable {
 
 	public Agenda() {
 		super();
+		this.turnos = new ArrayList<>();
 		// TODO Auto-generated constructor stub
 	}
 

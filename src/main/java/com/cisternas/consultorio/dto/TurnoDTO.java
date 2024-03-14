@@ -11,7 +11,6 @@ public class TurnoDTO {
 	private LocalDate fecha;
 	private LocalTime hora;
 	private AgendaDTO agenda;
-	private boolean reservado;
 	private EnEstado estado;
 	private ConsultorioDTO consultorio;
 	private PacienteDTO paciente;
@@ -21,14 +20,13 @@ public class TurnoDTO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public TurnoDTO(Long id, LocalDate fecha, LocalTime hora, AgendaDTO agenda, boolean reservado, EnEstado estado,
+	public TurnoDTO(Long id, LocalDate fecha, LocalTime hora, AgendaDTO agenda, EnEstado estado,
 			ConsultorioDTO consultorio, PacienteDTO paciente) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
 		this.hora = hora;
 		this.agenda = agenda;
-		this.reservado = reservado;
 		this.estado = estado;
 		this.consultorio = consultorio;
 		this.paciente = paciente;
@@ -66,14 +64,6 @@ public class TurnoDTO {
 		this.agenda = agenda;
 	}
 
-	public boolean isReservado() {
-		return reservado;
-	}
-
-	public void setReservado(boolean reservado) {
-		this.reservado = reservado;
-	}
-
 	public EnEstado getEstado() {
 		return estado;
 	}
@@ -100,8 +90,8 @@ public class TurnoDTO {
 
 	@Override
 	public String toString() {
-		return "TurnoDTO [id=" + id + ", fecha=" + fecha + ", hora=" + hora + ", agenda=" + agenda + ", reservado="
-				+ reservado + ", estado=" + estado + ", consultorio=" + consultorio + ", paciente=" + paciente + "]";
+		return "TurnoDTO [id=" + id + ", fecha=" + fecha + ", hora=" + hora + ", agenda=" + agenda + ", estado="
+				+ estado + ", consultorio=" + consultorio + ", paciente=" + paciente + "]";
 	}
 
 }

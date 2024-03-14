@@ -20,7 +20,7 @@ import jakarta.validation.constraints.NotNull;
 @Table(name = "sys_turno")
 public class Turno implements Serializable {
 	public enum EnEstado {
-		Confirmado, Cancelado, Modificado
+		Confirmado, Cancelado, Modificado, Disponible
 	}
 
 	/**
@@ -42,11 +42,8 @@ public class Turno implements Serializable {
 	private LocalTime hora;
 
 	@ManyToOne
-	@JoinColumn(name = "tur_agenda", nullable = false)
+	@JoinColumn(name = "tur_agenda")
 	private Agenda agenda;
-
-	@Column(name = "tur_reservado")
-	private boolean reservado;
 
 	@Column(name = "tur_estado")
 	private EnEstado estado;
@@ -72,7 +69,6 @@ public class Turno implements Serializable {
 		this.fecha = fecha;
 		this.hora = hora;
 		this.agenda = agenda;
-		this.reservado = reservado;
 		this.estado = estado;
 		this.consultorio = consultorio;
 		this.paciente = paciente;
@@ -110,14 +106,6 @@ public class Turno implements Serializable {
 		this.agenda = agenda;
 	}
 
-	public boolean isReservado() {
-		return reservado;
-	}
-
-	public void setReservado(boolean reservado) {
-		this.reservado = reservado;
-	}
-
 	public EnEstado getEstado() {
 		return estado;
 	}
@@ -144,8 +132,8 @@ public class Turno implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Turno [id=" + id + ", fecha=" + fecha + ", hora=" + hora + ", agenda=" + agenda + ", reservado="
-				+ reservado + ", estado=" + estado + ", consultorio=" + consultorio + ", paciente=" + paciente + "]";
+		return "Turno [id=" + id + ", fecha=" + fecha + ", hora=" + hora + ", agenda=" + agenda + ", estado=" + estado
+				+ ", consultorio=" + consultorio + ", paciente=" + paciente + "]";
 	}
 
 }

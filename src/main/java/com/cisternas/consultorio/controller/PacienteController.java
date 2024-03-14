@@ -31,8 +31,6 @@ public class PacienteController {
 	@Autowired
 	private PacienteMapper pacienteMapper;
 
-	// private ProfesionalService pacienteService;
-
 	// GET - UN PACIENTE
 	@GetMapping("/get/{cuil}")
 	public ResponseEntity<?> obtenerUno(@PathVariable Long cuil) {
