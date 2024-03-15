@@ -1,0 +1,43 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#" style="display: flex; align-items: center;">
+    <img src="/assets/certant.png" height="30" alt="Favicon" style="margin-right:3%; margin-left: 3%;">
+    <b style="top: 2px;">CONSULTORIO - Celeste Cisternas</b>
+  </a>
+  
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarNav"  style="margin-left: 2%;">
+    <ul class="navbar-nav mr-auto">
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPacientes" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Pacientes
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownPacientes">
+          <a class="dropdown-item" routerLink="/pacientes">Alta</a>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownProfesionales" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Profesionales
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownProfesionales">
+          <a class="dropdown-item" routerLink="/profesionales">Alta</a>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTurnos" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Turnos
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownTurnos">
+          <a class="dropdown-item" routerLink="/turnos">Alta</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>

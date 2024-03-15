@@ -1,0 +1,46 @@
+<body>
+    <div class="container mt-5">
+      <h2><b>Registro de Paciente</b></h2>
+      <form [formGroup]="paciente" (submit)="onSubmit()">
+        <div class="mb-3">
+          <label for="cuil" class="form-label">CUIL</label>
+          <input type="text" class="form-control" id="cuil" formControlName="cuil">
+          <div *ngIf="paciente.controls['cuil'].errors && paciente.controls['cuil'].touched">
+            <small class="text-danger" *ngIf="paciente.controls['cuil'].errors['required']">El CUIL es obligatorio.</small>
+            <small class="text-danger" *ngIf="paciente.controls['cuil'].errors['pattern']">El CUIL debe tener 11 dígitos.</small>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre</label>
+          <input type="text" class="form-control" id="nombre" formControlName="nombre">
+          <div *ngIf="paciente.controls['nombre'].errors && paciente.controls['nombre'].touched">
+            <small class="text-danger">El nombre es obligatorio.</small>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="apellido" class="form-label">Apellido</label>
+          <input type="text" class="form-control" id="apellido" formControlName="apellido">
+          <div *ngIf="paciente.controls['apellido'].errors && paciente.controls['apellido'].touched">
+            <small class="text-danger">El apellido es obligatorio.</small>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="obraSocial" class="form-label">Obra Social</label>
+          <input type="text" class="form-control" id="obraSocial" formControlName="obraSocial">
+          <div *ngIf="paciente.controls['obraSocial'].errors && paciente.controls['obraSocial'].touched">
+            <small class="text-danger">La obra social es obligatoria.</small>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="telefono" class="form-label">Teléfono</label>
+          <input type="tel" class="form-control" id="telefono" formControlName="telefono">
+          <div *ngIf="paciente.controls['telefono'].errors && paciente.controls['telefono'].touched">
+            <small class="text-danger" *ngIf="paciente.controls['telefono'].errors['required']">El teléfono es obligatorio.</small>
+            <small class="text-danger" *ngIf="paciente.controls['telefono'].errors['minLength']">El teléfono debe tener al menos 10 dígitos.</small>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="!paciente.valid">Guardar</button>
+      </form>
+    </div>
+  </body>
+  
