@@ -37,8 +37,8 @@ public class Disponibilidad implements Serializable {
 	private LocalTime horaFin;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pro_matricula", referencedColumnName = "pro_matricula")
-    private Profesional profesional;
+	@JoinColumn(name = "pro_matricula", referencedColumnName = "pro_matricula")
+	private Profesional profesional;
 
 	public Disponibilidad() {
 		super();
@@ -94,12 +94,6 @@ public class Disponibilidad implements Serializable {
 
 	public void setProfesional(Profesional profesional) {
 		this.profesional = profesional;
-	}
-
-	@Override
-	public String toString() {
-		return "Disponibilidad [id=" + id + ", dia=" + dia + ", horaInicio=" + horaInicio + ", horaFin=" + horaFin
-				+ ", profesional=" + profesional + "]";
 	}
 
 }

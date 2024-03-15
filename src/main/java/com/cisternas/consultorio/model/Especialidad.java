@@ -55,9 +55,4 @@ public class Especialidad implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	@Override
-	public String toString() {
-		return "Especialidad [id=" + id + ", descripcion=" + descripcion + "]";
-	}
-
 }

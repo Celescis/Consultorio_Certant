@@ -43,7 +43,7 @@ public class Profesional implements Serializable {
 	private Agenda agenda;
 
 	@OneToMany(mappedBy = "profesional", cascade = CascadeType.ALL)
-    private List<Disponibilidad> disponibilidad;
+	private List<Disponibilidad> disponibilidad;
 
 	public Profesional() {
 		super();
@@ -110,12 +110,6 @@ public class Profesional implements Serializable {
 
 	public void setDisponibilidad(List<Disponibilidad> disponibilidad) {
 		this.disponibilidad = disponibilidad;
-	}
-
-	@Override
-	public String toString() {
-		return "Profesional [matricula=" + matricula + ", nombre=" + nombre + ", apellido=" + apellido
-				+ ", especialidad=" + especialidad + ", agenda=" + agenda + ", disponibilidad=" + disponibilidad + "]";
 	}
 
 }

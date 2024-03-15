@@ -88,10 +88,4 @@ public class TurnoDTO {
 		this.paciente = paciente;
 	}
 
-	@Override
-	public String toString() {
-		return "TurnoDTO [id=" + id + ", fecha=" + fecha + ", hora=" + hora + ", agenda=" + agenda + ", estado="
-				+ estado + ", consultorio=" + consultorio + ", paciente=" + paciente + "]";
-	}
-
 }

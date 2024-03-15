@@ -65,10 +65,4 @@ public class DisponibilidadDTO {
 		this.profesionalDTO = profesionalDTO;
 	}
 
-	@Override
-	public String toString() {
-		return "DisponibilidadDTO [id=" + id + ", dia=" + dia + ", horaInicio=" + horaInicio + ", horaFin=" + horaFin
-				+ ", profesionalDTO=" + profesionalDTO + "]";
-	}
-
 }

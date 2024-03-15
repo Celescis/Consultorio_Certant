@@ -16,8 +16,8 @@ public class ProfesionalDTO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ProfesionalDTO(Long matricula, EspecialidadDTO especialidad, String nombre, String apellido, AgendaDTO agenda,
-			List<DisponibilidadDTO> disponibilidad) {
+	public ProfesionalDTO(Long matricula, EspecialidadDTO especialidad, String nombre, String apellido,
+			AgendaDTO agenda, List<DisponibilidadDTO> disponibilidad) {
 		super();
 		this.matricula = matricula;
 		this.especialidad = especialidad;
@@ -73,12 +73,6 @@ public class ProfesionalDTO {
 
 	public void setDisponibilidad(List<DisponibilidadDTO> disponibilidad) {
 		this.disponibilidad = disponibilidad;
-	}
-
-	@Override
-	public String toString() {
-		return "ProfesionalDTO [matricula=" + matricula + ", especialidad=" + especialidad + ", nombre=" + nombre
-				+ ", apellido=" + apellido + ", agenda=" + agenda + ", disponibilidad=" + disponibilidad + "]";
 	}
 
 }

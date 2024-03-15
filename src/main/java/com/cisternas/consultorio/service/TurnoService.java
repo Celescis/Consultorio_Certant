@@ -4,16 +4,27 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cisternas.consultorio.dto.AsignarTurnoDTO;
+import com.cisternas.consultorio.dto.ModificarTurnoDTO;
+import com.cisternas.consultorio.dto.TurnoDTO;
+import com.cisternas.consultorio.dto.TurnoMapper;
 import com.cisternas.consultorio.model.Agenda;
 import com.cisternas.consultorio.model.Disponibilidad;
+import com.cisternas.consultorio.model.Paciente;
 import com.cisternas.consultorio.model.Turno;
 import com.cisternas.consultorio.repository.AgendaRepository;
+import com.cisternas.consultorio.repository.PacienteRepository;
 import com.cisternas.consultorio.repository.TurnoRepository;
 
 @Service
@@ -26,6 +37,12 @@ public class TurnoService {
 
 	@Autowired
 	private AgendaRepository agendaRepository;
+
+	@Autowired
+	private PacienteRepository pacienteRepository;
+
+	@Autowired
+	private TurnoMapper turnoMapper;
 
 	@Transactional
 	public List<Turno> generarTurnos(Agenda agenda, List<Disponibilidad> disponibilidades) {
@@ -77,6 +94,73 @@ public class TurnoService {
 
 	public List<Turno> obtenerTurnosDisponibles() {
 		return turnoRepository.findAllByEstado(Turno.EnEstado.Disponible);
+	}
+
+	@Transactional
+	public Map<String, Object> asignarTurno(AsignarTurnoDTO asignarTurnoDTO) {
+		Map<String, Object> response = new HashMap<>();
+		Paciente paciente = pacienteRepository.findByCuil(asignarTurnoDTO.getCuil());
+
+		if (paciente != null) {
+			Optional<Turno> turno = turnoRepository.findById(asignarTurnoDTO.getIdTurno());
+			if (turno.isPresent()) {
+				turno.get().setPaciente(paciente);
+				turno.get().setEstado(Turno.EnEstado.Confirmado);
+				turnoRepository.save(turno.get());
+				response.put("msg", "Se asigno este turno al paciente: " + asignarTurnoDTO.getCuil());
+			} else {
+				response.put("msg", "Ese turno no existe ");
+			}
+		} else {
+			response.put("msg", "No existe un paciente con ese cuil: " + asignarTurnoDTO.getCuil());
+		}
+
+		return response;
+	}
+
+	@Transactional
+	public Map<String, Object> cancelarTurno(AsignarTurnoDTO asignarTurnoDTO) {
+		Map<String, Object> response = new HashMap<>();
+		Paciente paciente = pacienteRepository.findByCuil(asignarTurnoDTO.getCuil());
+
+		if (paciente != null) {
+			Optional<Turno> turno = turnoRepository.findById(asignarTurnoDTO.getIdTurno());
+			if (turno.isPresent()) {
+				turno.get().setPaciente(null);
+				turno.get().setEstado(Turno.EnEstado.Cancelado);
+				turnoRepository.save(turno.get());
+				response.put("msg", "Se cancelo este turno al paciente: " + asignarTurnoDTO.getCuil());
+			} else {
+				response.put("msg", "No existe ese turno para ese paciente. ");
+			}
+		} else {
+			response.put("msg", "No existe un paciente con ese cuil: " + asignarTurnoDTO.getCuil());
+		}
+
+		return response;
+
+	}
+
+	@Transactional
+	public Map<String, Object> modificarTurno(ModificarTurnoDTO modificarTurnoDTO) {
+		Map<String, Object> response = new HashMap<>();
+
+		Optional<Turno> turno = turnoRepository.findById(modificarTurnoDTO.getId());
+		if (turno.isPresent()) {
+			Turno turnoModificado = turno.get();
+
+			turnoModificado.setFecha(modificarTurnoDTO.getFecha());
+			turnoModificado.setHora(modificarTurnoDTO.getHora());
+			turnoModificado.setEstado(Turno.EnEstado.Modificado);
+
+			turnoRepository.save(turnoModificado);
+			response.put("msg", "Se modifico los datos del turno. ");
+		} else {
+			response.put("msg", "El turno no existe. ");
+		}
+
+		return response;
+
 	}
 
 }

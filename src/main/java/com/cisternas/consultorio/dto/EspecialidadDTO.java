@@ -32,9 +32,4 @@ public class EspecialidadDTO {
 		this.descripcion = descripcion;
 	}
 
-	@Override
-	public String toString() {
-		return "EspecialidadDTO [id=" + id + ", descripcion=" + descripcion + "]";
-	}
-
 }

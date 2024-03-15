@@ -1,4 +1,5 @@
 package com.cisternas.consultorio.model;
+
 import java.lang.Long;
 import java.io.Serializable;
 import jakarta.persistence.Column;
@@ -90,12 +91,6 @@ public class Paciente implements Serializable {
 
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
-	}
-
-	@Override
-	public String toString() {
-		return "Paciente [cuil=" + cuil + ", nombre=" + nombre + ", apellido=" + apellido + ", obraSocial=" + obraSocial
-				+ ", telefono=" + telefono + "]";
 	}
 
 }

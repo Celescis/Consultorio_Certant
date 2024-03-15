@@ -44,9 +44,4 @@ public class AgendaDTO {
 		this.turnos = turnos;
 	}
 
-	@Override
-	public String toString() {
-		return "AgendaDTO [id=" + id + ", profesional=" + profesional + ", turnos=" + turnos + "]";
-	}
-
 }

@@ -130,10 +130,4 @@ public class Turno implements Serializable {
 		this.paciente = paciente;
 	}
 
-	@Override
-	public String toString() {
-		return "Turno [id=" + id + ", fecha=" + fecha + ", hora=" + hora + ", agenda=" + agenda + ", estado=" + estado
-				+ ", consultorio=" + consultorio + ", paciente=" + paciente + "]";
-	}
-
 }

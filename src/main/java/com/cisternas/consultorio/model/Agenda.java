@@ -73,9 +73,4 @@ public class Agenda implements Serializable {
 		this.turnos = turnos;
 	}
 
-	@Override
-	public String toString() {
-		return "Agenda [id=" + id + ", profesional=" + profesional + ", turnos=" + turnos + "]";
-	}
-
 }

@@ -62,10 +62,4 @@ public class PacienteDTO {
 		this.telefono = telefono;
 	}
 
-	@Override
-	public String toString() {
-		return "PacienteDTO [cuil=" + cuil + ", nombre=" + nombre + ", apellido=" + apellido + ", obraSocial="
-				+ obraSocial + ", telefono=" + telefono + "]";
-	}
-
 }

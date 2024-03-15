@@ -21,9 +21,4 @@ public class ConsultorioDTO {
 		this.id = id;
 	}
 
-	@Override
-	public String toString() {
-		return "ConsultorioDTO [id=" + id + "]";
-	}
-
 }
