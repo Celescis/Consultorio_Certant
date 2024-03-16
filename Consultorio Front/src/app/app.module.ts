@@ -10,6 +10,11 @@ import { HomeComponent } from './pages/home/home.component';
 import { AltaPacientesComponent } from './pages/alta-pacientes/alta-pacientes.component';
 import { AltaProfesionalesComponent } from './pages/alta-profesionales/alta-profesionales.component';
 import { AltaTurnosComponent } from './pages/alta-turnos/alta-turnos.component';
+import { ListaEspecialidadesComponent } from './pages/lista-especialidades/lista-especialidades.component';
+import { ListaProfesionalesComponent } from './pages/lista-profesionales/lista-profesionales.component';
+import { ListaTurnosComponent } from './pages/lista-turnos/lista-turnos.component';
+import { ListaTurnosPacienteComponent } from './pages/lista-turnos-paciente/lista-turnos-paciente.component';
+import { EspecialidadComponent } from './component/especialidad/especialidad.component';
 
 
 @NgModule({
@@ -20,6 +25,11 @@ import { AltaTurnosComponent } from './pages/alta-turnos/alta-turnos.component';
     AltaPacientesComponent,
     AltaProfesionalesComponent,
     AltaTurnosComponent,
+    EspecialidadComponent,
+    ListaEspecialidadesComponent,
+    ListaProfesionalesComponent,
+    ListaTurnosComponent,
+    ListaTurnosPacienteComponent,
 
   ],
   imports: [

@@ -1,1 +1,12 @@
-<p>alta-turnos works!</p>
+<body>
+    <form [formGroup]="formulario" style="width: 70vw; height: 20vw;" class="container contenedor-form" (submit)="onSubmit()">
+        <h2 style="text-align: center; margin-bottom: 20px;"> <b>Ingrese su cuil para poder solicitar un turno</b></h2>
+        <div class="d-flex flex-row align-items-center mb-3 log-input">
+          <div class="form-outline flex-fill mb-0 ">
+            <label class="mb-0 form-label text-black mt-5" for="form3Example6c">CUIL: </label>
+            <input formControlName="cuil" type="number" id="form3Example6c" class="form-control text-success mb-5" placeholder="Ingrese su cuil" />
+          </div>
+        </div>
+        <button type="submit" class="btn-juegos">Ingresar</button>
+      </form>
+</body>

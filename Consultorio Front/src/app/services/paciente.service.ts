@@ -13,5 +13,9 @@ export class PacienteService {
   crear(paciente: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/post`, paciente, { responseType: 'text' as 'json' });
   }
+  
+  obtenerPacientePorCuil (cuil:any): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/get/${cuil}`);
+  }
 
 }
