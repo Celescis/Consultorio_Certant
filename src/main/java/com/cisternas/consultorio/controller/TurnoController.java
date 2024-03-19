@@ -7,11 +7,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,24 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cisternas.consultorio.dto.AsignarTurnoDTO;
 import com.cisternas.consultorio.dto.ModificarTurnoDTO;
-import com.cisternas.consultorio.dto.PacienteDTO;
-import com.cisternas.consultorio.dto.PacienteMapper;
 import com.cisternas.consultorio.dto.TurnoDTO;
 import com.cisternas.consultorio.dto.TurnoMapper;
-import com.cisternas.consultorio.model.Paciente;
 import com.cisternas.consultorio.model.Turno;
-import com.cisternas.consultorio.repository.PacienteRepository;
 import com.cisternas.consultorio.repository.TurnoRepository;
 import com.cisternas.consultorio.service.TurnoService;
 
 @RestController
 @RequestMapping("/tur")
 public class TurnoController {
-
-	@Autowired
-	private PacienteRepository pacienteRepository;
-
-	private PacienteMapper pacienteMapper;
 
 	@Autowired
 	private TurnoMapper turnoMapper;
@@ -72,6 +60,7 @@ public class TurnoController {
 			if (turnos.isEmpty()) {
 				return new ResponseEntity<String>("No se encontraron turnos. ", HttpStatus.NO_CONTENT);
 			} else {
+
 				return new ResponseEntity<List<TurnoDTO>>(turnoMapper.lstEntityToLstDto(turnos), HttpStatus.OK);
 			}
 
@@ -80,6 +69,62 @@ public class TurnoController {
 					HttpStatus.BAD_REQUEST);
 		}
 	}
+
+	// GET - LISTA DE TURNOS POR ESPECIALIDAD
+	@GetMapping("/especialidad/{especialidadId}")
+	public ResponseEntity<?> obtenerTurnosPorEspecialidad(@PathVariable Long especialidadId) {
+		try {
+			List<Turno> turnos = turnoRepository.findAllByEspecialidadId(especialidadId);
+			if (turnos.isEmpty()) {
+				return new ResponseEntity<>("No se encontraron turnos para la especialidad con ID: " + especialidadId,
+						HttpStatus.NO_CONTENT);
+			}
+			return new ResponseEntity<List<TurnoDTO>>(turnoMapper.lstEntityToLstDto(turnos), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>("Error al obtener turnos por especialidad: " + e.getMessage(),
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	// GET - LISTA DE TURNOS POR PROFESIONAL
+	@GetMapping("/profesional/{profesionalId}")
+	public ResponseEntity<?> obtenerListaProfesional(@PathVariable Long profesionalId) {
+		try {
+
+			List<Turno> turnos = (List<Turno>) turnoRepository.findAllByProfesionalId(profesionalId);
+			if (turnos.isEmpty()) {
+				return new ResponseEntity<String>("No se encontraron turnos para ese profesional. ",
+						HttpStatus.NO_CONTENT);
+			} else {
+				return new ResponseEntity<List<TurnoDTO>>(turnoMapper.lstEntityToLstDto(turnos), HttpStatus.OK);
+			}
+
+		} catch (Exception e) {
+			return new ResponseEntity<String>(
+					"Error obteniendo la lista de turnos del profesional: " + profesionalId + e.getMessage(),
+					HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	// GET - LISTA DE TURNOS POR PACIENTE
+		@GetMapping("/paciente/{pacienteId}")
+		public ResponseEntity<?> obtenerListaPaciente(@PathVariable Long pacienteId) {
+			try {
+
+				List<Turno> turnos = (List<Turno>) turnoRepository.findAllByPacienteId(pacienteId);
+				if (turnos.isEmpty()) {
+					return new ResponseEntity<String>("No se encontraron turnos para ese paciente. ",
+							HttpStatus.NO_CONTENT);
+				} else {
+					return new ResponseEntity<List<TurnoDTO>>(turnoMapper.lstEntityToLstDto(turnos), HttpStatus.OK);
+				}
+
+			} catch (Exception e) {
+				return new ResponseEntity<String>(
+						"Error obteniendo la lista de turnos del paciente: " + pacienteId + e.getMessage(),
+						HttpStatus.BAD_REQUEST);
+			}
+		}
 
 	// PUT - ASIGNAR UN TURNO
 	@PutMapping("/put/asignar")

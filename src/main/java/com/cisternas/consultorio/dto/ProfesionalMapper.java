@@ -15,6 +15,10 @@ public class ProfesionalMapper {
 
 	@Autowired
 	private EspecialidadMapper especialidadMapper;
+	
+	@Autowired
+	private TurnoMapper turnoMapper;
+	
 
 	public Profesional dtoToEntity(ProfesionalDTO dto) {
 		Profesional entity = new Profesional();
@@ -27,6 +31,10 @@ public class ProfesionalMapper {
 			entity.setEspecialidad(especialidadMapper.dtoToEntity(dto.getEspecialidad()));
 		}
 
+		if (dto.getTurnos() != null) {
+			entity.setTurnos(turnoMapper.lstDtoToLstEntity(dto.getTurnos()));
+		}
+		
 		return entity;
 	}
 
@@ -41,6 +49,10 @@ public class ProfesionalMapper {
 			dto.setEspecialidad(especialidadMapper.entityToDto(entity.getEspecialidad()));
 		}
 
+		if (entity.getTurnos() != null) {
+			dto.setTurnos(turnoMapper.lstEntityToLstDto(entity.getTurnos()));
+		}
+		
 		return dto;
 	}
 

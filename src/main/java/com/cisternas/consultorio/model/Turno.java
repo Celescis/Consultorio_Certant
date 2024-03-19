@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
@@ -41,10 +43,6 @@ public class Turno implements Serializable {
 	@Column(name = "tur_hora")
 	private LocalTime hora;
 
-	@ManyToOne
-	@JoinColumn(name = "tur_agenda")
-	private Agenda agenda;
-
 	@Column(name = "tur_estado")
 	private EnEstado estado;
 
@@ -56,22 +54,17 @@ public class Turno implements Serializable {
 	@JoinColumn(name = "tur_paciente")
 	private Paciente paciente;
 
+	@ManyToOne
+	@JoinColumn(name = "tur_especialidad")
+	private Especialidad especialidad;
+
+	@ManyToOne
+	@JoinColumn(name = "tur_profesional")
+	private Profesional profesional;
+
 	public Turno() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-
-	public Turno(Long id, @NotBlank(message = "Debe ingresar la fecha") LocalDate fecha,
-			@NotBlank(message = "Debe ingresar el horario") LocalTime hora, Agenda agenda, boolean reservado,
-			EnEstado estado, Consultorio consultorio, Paciente paciente) {
-		super();
-		this.id = id;
-		this.fecha = fecha;
-		this.hora = hora;
-		this.agenda = agenda;
-		this.estado = estado;
-		this.consultorio = consultorio;
-		this.paciente = paciente;
 	}
 
 	public Long getId() {
@@ -98,14 +91,6 @@ public class Turno implements Serializable {
 		this.hora = hora;
 	}
 
-	public Agenda getAgenda() {
-		return agenda;
-	}
-
-	public void setAgenda(Agenda agenda) {
-		this.agenda = agenda;
-	}
-
 	public EnEstado getEstado() {
 		return estado;
 	}
@@ -128,6 +113,22 @@ public class Turno implements Serializable {
 
 	public void setPaciente(Paciente paciente) {
 		this.paciente = paciente;
+	}
+
+	public Especialidad getEspecialidad() {
+		return especialidad;
+	}
+
+	public void setEspecialidad(Especialidad especialidad) {
+		this.especialidad = especialidad;
+	}
+
+	public Profesional getProfesional() {
+		return profesional;
+	}
+
+	public void setProfesional(Profesional profesional) {
+		this.profesional = profesional;
 	}
 
 }

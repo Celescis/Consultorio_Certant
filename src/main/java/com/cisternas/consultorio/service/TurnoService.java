@@ -19,11 +19,11 @@ import com.cisternas.consultorio.dto.AsignarTurnoDTO;
 import com.cisternas.consultorio.dto.ModificarTurnoDTO;
 import com.cisternas.consultorio.dto.TurnoDTO;
 import com.cisternas.consultorio.dto.TurnoMapper;
-import com.cisternas.consultorio.model.Agenda;
 import com.cisternas.consultorio.model.Disponibilidad;
+import com.cisternas.consultorio.model.Especialidad;
 import com.cisternas.consultorio.model.Paciente;
+import com.cisternas.consultorio.model.Profesional;
 import com.cisternas.consultorio.model.Turno;
-import com.cisternas.consultorio.repository.AgendaRepository;
 import com.cisternas.consultorio.repository.PacienteRepository;
 import com.cisternas.consultorio.repository.TurnoRepository;
 
@@ -36,16 +36,13 @@ public class TurnoService {
 	private DisponibilidadService disponibilidadService;
 
 	@Autowired
-	private AgendaRepository agendaRepository;
-
-	@Autowired
 	private PacienteRepository pacienteRepository;
 
 	@Autowired
 	private TurnoMapper turnoMapper;
 
 	@Transactional
-	public List<Turno> generarTurnos(Agenda agenda, List<Disponibilidad> disponibilidades) {
+	public List<Turno> generarTurnos(Profesional profesional, List<Disponibilidad> disponibilidades) {
 		List<Turno> turnosGenerados = new ArrayList<>();
 
 		for (Disponibilidad disponibilidad : disponibilidades) {
@@ -68,7 +65,8 @@ public class TurnoService {
 					LocalTime horaFin = disponibilidad.getHoraFin().isAfter(LocalTime.of(23, 0)) ? LocalTime.of(23, 0)
 							: disponibilidad.getHoraFin();
 					while (horaInicio.isBefore(horaFin)) {
-						Turno turnoGenerado = crearTurno(agenda, fechaInicio, horaInicio);
+						Turno turnoGenerado = crearTurno(fechaInicio, horaInicio, profesional.getEspecialidad(),
+								profesional);
 						turnosGenerados.add(turnoGenerado);
 
 						// ASIGNO TURNOS CADA 1 HORA
@@ -78,17 +76,16 @@ public class TurnoService {
 				fechaInicio = fechaInicio.plusDays(1);
 			}
 		}
-		agendaRepository.save(agenda);
 		return turnosGenerados;
 	}
 
-	private Turno crearTurno(Agenda agenda, LocalDate fecha, LocalTime hora) {
+	private Turno crearTurno(LocalDate fecha, LocalTime hora, Especialidad especialidad, Profesional profesional) {
 		Turno turno = new Turno();
-		turno.setAgenda(agenda);
 		turno.setFecha(fecha);
 		turno.setHora(hora);
 		turno.setEstado(Turno.EnEstado.Disponible);
-
+		turno.setEspecialidad(especialidad);
+		turno.setProfesional(profesional);
 		return turnoRepository.save(turno);
 	}
 

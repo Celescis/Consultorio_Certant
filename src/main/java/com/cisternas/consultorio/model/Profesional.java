@@ -38,30 +38,17 @@ public class Profesional implements Serializable {
 	@JoinColumn(name = "esp_id")
 	private Especialidad especialidad;
 
-	@OneToOne(mappedBy = "profesional", cascade = CascadeType.ALL)
-	@JoinColumn(name = "age_id")
-	private Agenda agenda;
-
 	@OneToMany(mappedBy = "profesional", cascade = CascadeType.ALL)
 	private List<Disponibilidad> disponibilidad;
+	
+	@OneToMany(mappedBy = "profesional", cascade = CascadeType.ALL)
+	private List<Turno> turnos;
 
 	public Profesional() {
 		super();
 		this.disponibilidad = new ArrayList<>();
+		this.turnos = new ArrayList<>();
 		// TODO Auto-generated constructor stub
-	}
-
-	public Profesional(@NotNull(message = "Debe ingresar la matricula") Long matricula,
-			@NotBlank(message = "Debe ingresar el nombre") String nombre,
-			@NotBlank(message = "Debe ingresar el apellido") String apellido, Especialidad especialidad, Agenda agenda,
-			List<Disponibilidad> disponibilidad) {
-		super();
-		this.matricula = matricula;
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.especialidad = especialidad;
-		this.agenda = agenda;
-		this.disponibilidad = disponibilidad;
 	}
 
 	public Long getMatricula() {
@@ -96,14 +83,6 @@ public class Profesional implements Serializable {
 		this.especialidad = especialidad;
 	}
 
-	public Agenda getAgenda() {
-		return agenda;
-	}
-
-	public void setAgenda(Agenda agenda) {
-		this.agenda = agenda;
-	}
-
 	public List<Disponibilidad> getDisponibilidad() {
 		return disponibilidad;
 	}
@@ -111,5 +90,15 @@ public class Profesional implements Serializable {
 	public void setDisponibilidad(List<Disponibilidad> disponibilidad) {
 		this.disponibilidad = disponibilidad;
 	}
+
+	public List<Turno> getTurnos() {
+		return turnos;
+	}
+
+	public void setTurnos(List<Turno> turnos) {
+		this.turnos = turnos;
+	}
+
+	
 
 }

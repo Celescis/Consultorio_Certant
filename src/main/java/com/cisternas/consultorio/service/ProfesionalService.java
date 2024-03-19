@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cisternas.consultorio.dto.DisponibilidadDTO;
 import com.cisternas.consultorio.dto.ProfesionalDTO;
 import com.cisternas.consultorio.dto.ProfesionalMapper;
-import com.cisternas.consultorio.model.Agenda;
 import com.cisternas.consultorio.model.Disponibilidad;
 import com.cisternas.consultorio.model.Profesional;
 import com.cisternas.consultorio.repository.ProfesionalRepository;
@@ -29,9 +28,6 @@ public class ProfesionalService {
 
 	@Autowired
 	private DisponibilidadService disponibilidadService;
-
-	@Autowired
-	private AgendaService agendaService;
 
 	@Autowired
 	private TurnoService turnoService;
@@ -50,12 +46,8 @@ public class ProfesionalService {
 			// ASIGNO LA DISPONIBILIDAD AL PROFESIONAL Y LO GUARDO EN LA BASE DE DATOS
 			disponibilidadService.asignarDisponibilidad(profesionalGuardado, disponibilidadList);
 
-			// GENERO LA AGENDA DEL PROFESIONAL
-			Agenda agenda = agendaService.generarAgenda(profesionalGuardado);
-
 			// GENERO LOS TURNOS A PARTIR DE LA DISPONIBILIDAD Y LO GUARDO EN LA AGENDA
-			agenda.setTurnos(turnoService.generarTurnos(agenda, disponibilidadList));
-			profesionalGuardado.setAgenda(agenda);
+			turnoService.generarTurnos(profesionalGuardado, disponibilidadList);
 			profesionalRepository.save(profesionalGuardado);
 
 			response.put("msg",

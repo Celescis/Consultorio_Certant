@@ -8,23 +8,12 @@ public class ProfesionalDTO {
 	private EspecialidadDTO especialidad;
 	private String nombre;
 	private String apellido;
-	private AgendaDTO agenda;
 	private List<DisponibilidadDTO> disponibilidad;
+	private List<TurnoDTO> turnos;
 
 	public ProfesionalDTO() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-
-	public ProfesionalDTO(Long matricula, EspecialidadDTO especialidad, String nombre, String apellido,
-			AgendaDTO agenda, List<DisponibilidadDTO> disponibilidad) {
-		super();
-		this.matricula = matricula;
-		this.especialidad = especialidad;
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.agenda = agenda;
-		this.disponibilidad = disponibilidad;
 	}
 
 	public Long getMatricula() {
@@ -59,20 +48,20 @@ public class ProfesionalDTO {
 		this.apellido = apellido;
 	}
 
-	public AgendaDTO getAgenda() {
-		return agenda;
-	}
-
-	public void setAgenda(AgendaDTO agenda) {
-		this.agenda = agenda;
-	}
-
 	public List<DisponibilidadDTO> getDisponibilidad() {
 		return disponibilidad;
 	}
 
 	public void setDisponibilidad(List<DisponibilidadDTO> disponibilidad) {
 		this.disponibilidad = disponibilidad;
+	}
+
+	public List<TurnoDTO> getTurnos() {
+		return turnos;
+	}
+
+	public void setTurnos(List<TurnoDTO> turnos) {
+		this.turnos = turnos;
 	}
 
 }

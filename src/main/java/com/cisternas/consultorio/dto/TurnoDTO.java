@@ -3,6 +3,7 @@ package com.cisternas.consultorio.dto;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import com.cisternas.consultorio.model.Profesional;
 import com.cisternas.consultorio.model.Turno.EnEstado;
 
 public class TurnoDTO {
@@ -10,26 +11,15 @@ public class TurnoDTO {
 	private Long id;
 	private LocalDate fecha;
 	private LocalTime hora;
-	private AgendaDTO agenda;
 	private EnEstado estado;
 	private ConsultorioDTO consultorio;
 	private PacienteDTO paciente;
+	private EspecialidadDTO especialidad;
+	private Long profesionalId;;
 
 	public TurnoDTO() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-
-	public TurnoDTO(Long id, LocalDate fecha, LocalTime hora, AgendaDTO agenda, EnEstado estado,
-			ConsultorioDTO consultorio, PacienteDTO paciente) {
-		super();
-		this.id = id;
-		this.fecha = fecha;
-		this.hora = hora;
-		this.agenda = agenda;
-		this.estado = estado;
-		this.consultorio = consultorio;
-		this.paciente = paciente;
 	}
 
 	public Long getId() {
@@ -56,14 +46,6 @@ public class TurnoDTO {
 		this.hora = hora;
 	}
 
-	public AgendaDTO getAgenda() {
-		return agenda;
-	}
-
-	public void setAgenda(AgendaDTO agenda) {
-		this.agenda = agenda;
-	}
-
 	public EnEstado getEstado() {
 		return estado;
 	}
@@ -86,6 +68,22 @@ public class TurnoDTO {
 
 	public void setPaciente(PacienteDTO paciente) {
 		this.paciente = paciente;
+	}
+
+	public EspecialidadDTO getEspecialidad() {
+		return especialidad;
+	}
+
+	public void setEspecialidad(EspecialidadDTO especialidad) {
+		this.especialidad = especialidad;
+	}
+
+	public Long getProfesionalId() {
+		return profesionalId;
+	}
+
+	public void setProfesionalId(Long profesionalId) {
+		this.profesionalId = profesionalId;
 	}
 
 }

@@ -2,6 +2,7 @@ package com.cisternas.consultorio.dto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -12,17 +13,16 @@ import com.cisternas.consultorio.model.Turno;
 @Component
 public class TurnoMapper {
 
-	private AgendaMapper agendaMapper;
+	private final ConsultorioMapper consultorioMapper;
+	private final PacienteMapper pacienteMapper;
+	private final EspecialidadMapper especialidadMapper;
 
 	@Autowired
-	private ConsultorioMapper consultorioMapper;
-
-	@Autowired
-	private PacienteMapper pacienteMapper;
-
-	@Autowired
-	public TurnoMapper(@Lazy AgendaMapper agendaMapper) {
-		this.agendaMapper = agendaMapper;
+	public TurnoMapper(@Lazy ConsultorioMapper consultorioMapper, PacienteMapper pacienteMapper,
+			EspecialidadMapper especialidadMapper) {
+		this.consultorioMapper = consultorioMapper;
+		this.pacienteMapper = pacienteMapper;
+		this.especialidadMapper = especialidadMapper;
 	}
 
 	public Turno dtoToEntity(TurnoDTO dto) {
@@ -31,11 +31,6 @@ public class TurnoMapper {
 		entity.setFecha(dto.getFecha());
 		entity.setHora(dto.getHora());
 
-		if (dto.getAgenda() != null) {
-			entity.setAgenda(agendaMapper.dtoToEntity(dto.getAgenda()));
-		}
-
-		// entity.setReservado(dto.isReservado());
 		entity.setEstado(dto.getEstado());
 
 		if (dto.getConsultorio() != null) {
@@ -44,6 +39,10 @@ public class TurnoMapper {
 
 		if (dto.getPaciente() != null) {
 			entity.setPaciente(pacienteMapper.dtoToEntity(dto.getPaciente()));
+		}
+
+		if (dto.getEspecialidad() != null) {
+			entity.setEspecialidad(especialidadMapper.dtoToEntity(dto.getEspecialidad()));
 		}
 
 		return entity;
@@ -55,11 +54,6 @@ public class TurnoMapper {
 		dto.setFecha(entity.getFecha());
 		dto.setHora(entity.getHora());
 
-		if (entity.getAgenda() != null) {
-			dto.setAgenda(agendaMapper.entityToDto(entity.getAgenda()));
-		}
-
-		// dto.setReservado(entity.isReservado());
 		dto.setEstado(entity.getEstado());
 
 		if (entity.getConsultorio() != null) {
@@ -68,6 +62,14 @@ public class TurnoMapper {
 
 		if (entity.getPaciente() != null) {
 			dto.setPaciente(pacienteMapper.entityToDto(entity.getPaciente()));
+		}
+
+		if (entity.getEspecialidad() != null) {
+			dto.setEspecialidad(especialidadMapper.entityToDto(entity.getEspecialidad()));
+		}
+
+		if (entity.getProfesional() != null) {
+			dto.setProfesionalId(entity.getProfesional().getMatricula());
 		}
 
 		return dto;
